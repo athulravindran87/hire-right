@@ -17,3 +17,9 @@ file:
   storage:
     location: /tmp
 
+disruptor:
+  buffer-size: 409k6
+  handler:
+    document-publish-handler-count: 10
+    pdf-parser-handler-count: 20
+    send-down-stream-handler-count: 10
