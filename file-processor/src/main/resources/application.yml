@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: file-processor
+
+---
+spring:
+  profiles: local
+
+tesseract:
+  datapath: /Users/athul
+
+dm:
+  aws:
+    enabled: false
+
+file:
+  storage:
+    location: /tmp
+
