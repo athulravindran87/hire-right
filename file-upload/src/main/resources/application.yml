@@ -7,11 +7,26 @@ spring:
       file-size-threshold: 1MB
       max-file-size: 200MB
       max-request-size: 215MB
+  kafka:
+    consumer:
+      enable-auto-commit: true
+      auto-offset-reset: "earliest"
+      bootstrap-servers: "localhost"
+    producer:
+      bootstrap-servers:
 
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 ---
 spring:
   profiles: local
-
 dm:
   aws:
     enabled: false
