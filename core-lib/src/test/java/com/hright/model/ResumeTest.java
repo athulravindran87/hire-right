@@ -1,6 +1,7 @@
 package com.hright.model;
 
 
+import com.hright.test.BaseTest;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.Validator;
@@ -15,7 +16,7 @@ import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 import org.junit.Test;
 
-public class ResumeTest{
+public class ResumeTest extends BaseTest {
     @Test
     public void testPojoStructureAndBehavior() {
 
