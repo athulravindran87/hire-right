@@ -1,7 +1,10 @@
 package com.hright.processor.disruptor;
 
+import com.hright.processor.disruptor.bean.BeanArrayTest;
 import com.hright.processor.disruptor.bean.ResumeEventTest;
+import com.hright.processor.disruptor.config.DisruptorConfigTest;
 import com.hright.processor.disruptor.handlers.AllHandlerTests;
+import com.hright.processor.disruptor.processor.DisruptorProcessorTest;
 import com.hright.processor.disruptor.producer.EventProducerTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -10,7 +13,10 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         ResumeEventTest.class,
         EventProducerTest.class,
-        AllHandlerTests.class
+        AllHandlerTests.class,
+        DisruptorProcessorTest.class,
+        BeanArrayTest.class,
+        DisruptorConfigTest.class
 })
 public class AllDisruptorTests {
 }
