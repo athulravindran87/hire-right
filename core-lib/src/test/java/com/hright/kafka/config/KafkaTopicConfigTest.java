@@ -1,4 +1,4 @@
-package com.hright.kafka;
+package com.hright.kafka.config;
 
 import com.hright.test.BaseTest;
 import org.apache.kafka.clients.admin.AdminClientConfig;

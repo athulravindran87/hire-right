@@ -1,5 +1,8 @@
 package com.hright.kafka;
 
+import com.hright.kafka.config.KafkaConsumerConfigTest;
+import com.hright.kafka.config.KafkaProducerConfigTest;
+import com.hright.kafka.config.KafkaTopicConfigTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

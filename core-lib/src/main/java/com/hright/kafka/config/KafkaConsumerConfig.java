@@ -1,4 +1,4 @@
-package com.hright.kafka;
+package com.hright.kafka.config;
 
 import lombok.Data;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
