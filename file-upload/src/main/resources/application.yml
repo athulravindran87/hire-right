@@ -9,11 +9,9 @@ spring:
       max-request-size: 215MB
   kafka:
     consumer:
-      enable-auto-commit: true
+      enable-auto-commit: false
       auto-offset-reset: "earliest"
-      bootstrap-servers: "localhost"
-    producer:
-      bootstrap-servers:
+      group-id: "hright1"
 
 management:
   endpoint:
@@ -27,6 +25,12 @@ management:
 ---
 spring:
   profiles: local
+  kafka:
+    consumer:
+      bootstrap-servers: http://localhost:9092
+    producer:
+      bootstrap-servers: http://localhost:9092
+
 dm:
   aws:
     enabled: false
@@ -35,3 +39,7 @@ file:
   storage:
     location: /tmp
 
+kafka:
+  topic:
+    file-processor: "FILE_PROCESSOR_TOPIC"
+    elastic-search: "ELASTIC_SEARCH_TOPC"
