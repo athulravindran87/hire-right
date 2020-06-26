@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,7 +42,7 @@ public class KafkaControllerTest extends BaseTest {
     @Test
     public void sendMessageMvc() throws Exception {
 
-        this.mockMvc.perform(get("/kafka/send?topic=testTopic&key=testKey")
+        this.mockMvc.perform(post("/kafka/send?topic=testTopic&key=testKey")
                 .content("testMessage"))
                 .andExpect(content().string("Message Sent"))
                 .andExpect(status().isOk());
