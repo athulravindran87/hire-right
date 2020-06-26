@@ -18,7 +18,7 @@ public class KafkaTopicConfigTest extends BaseTest {
     private KafkaTopicConfig testObj;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
         this.testObj = new KafkaTopicConfig();
 
