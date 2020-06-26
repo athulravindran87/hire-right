@@ -29,6 +29,10 @@ public class KafkaConsumerConfigTest extends BaseTest {
 
         ReflectionTestUtils.setField(this.testObj, "autoOffSetReset",
                 "earliest");
+
+        ReflectionTestUtils.setField(this.testObj, "groupId",
+                "HRIGHT1");
+
     }
 
     @Test
@@ -37,6 +41,7 @@ public class KafkaConsumerConfigTest extends BaseTest {
 
         assertThat(consumerFactory.getConfigurationProperties(), allOf(
                 hasEntry(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "http://server1,http://server2"),
+                hasEntry(ConsumerConfig.GROUP_ID_CONFIG, "HRIGHT1"),
                 hasEntry(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest")
         ));
     }
