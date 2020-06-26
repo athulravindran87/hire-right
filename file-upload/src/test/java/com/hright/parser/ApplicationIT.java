@@ -25,9 +25,7 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = {"eureka.client.enabled=false",
-                "spring.cloud.config.enabled=false",
-                "myhrp.hazelcast.client.enabled=false"})
+        properties = {"spring.kafka.consumer.enabled=false"})
 @ActiveProfiles("local")
 
 public class ApplicationIT extends BaseTest {
