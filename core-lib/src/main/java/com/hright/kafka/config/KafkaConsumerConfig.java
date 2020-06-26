@@ -36,7 +36,7 @@ public class KafkaConsumerConfig {
     @Bean("consumerFactory")
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> config = new HashMap<>();
-        config.put(ConsumerConfig.GROUP_ID_CONFIG, this.bootStrapServers);
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, this.groupId);
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, this.bootStrapServers);
         config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, this.autoOffSetReset);
         config.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, this.enableAutoCommit);
