@@ -1,9 +1,8 @@
 package com.hright.parser.controller;
 
-import com.hright.file.FileService;
+import com.hright.parser.service.FileUploadService;
 import com.hright.test.BaseTest;
-import org.apache.commons.io.FileUtils;
-import org.eclipse.collections.api.list.MutableList;
+import org.eclipse.collections.impl.factory.Lists;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -15,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.ResourceUtils;
@@ -24,10 +22,8 @@ import java.io.File;
 import java.io.FileInputStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -39,11 +35,11 @@ public class FileUploadControllerTest extends BaseTest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
-    @Mock
-    private FileService fileService;
-
     @InjectMocks
     private FileUploadController testObj;
+
+    @Mock
+    private FileUploadService service;
 
     private MockMvc mockMvc;
 
@@ -52,8 +48,8 @@ public class FileUploadControllerTest extends BaseTest {
     @Before
     public void setUp() throws Exception {
         tempFolder = temporaryFolder.newFolder();
-        ReflectionTestUtils.setField(this.testObj, "tempFolder", tempFolder.getAbsolutePath());
         this.mockMvc = MockMvcBuilders.standaloneSetup(this.testObj).build();
+        when(this.service.process(any())).thenReturn(Lists.mutable.of(new File("abc")));
     }
 
     @After
@@ -68,9 +64,7 @@ public class FileUploadControllerTest extends BaseTest {
                         MediaType.MULTIPART_FORM_DATA_VALUE,
                         new FileInputStream(ResourceUtils.getFile("classpath:testdata/Archive.zip")));
 
-        this.testObj.parse(file);
-
-        verify(this.fileService).saveAll(anyList());
+        assertThat(this.testObj.parse(file).getBody(), equalTo("File Upload successful for total of 1 file(s)"));
     }
 
     @Test
@@ -80,9 +74,7 @@ public class FileUploadControllerTest extends BaseTest {
                         MediaType.MULTIPART_FORM_DATA_VALUE,
                         new FileInputStream(ResourceUtils.getFile("classpath:testdata/invoice.pdf")));
 
-        this.testObj.parse(file);
-
-        verify(this.fileService).saveAll(anyList());
+        assertThat(this.testObj.parse(file).getBody(), equalTo("File Upload successful for total of 1 file(s)"));
     }
 
     @Test
@@ -92,27 +84,8 @@ public class FileUploadControllerTest extends BaseTest {
                         MediaType.MULTIPART_FORM_DATA_VALUE,
                         new FileInputStream(ResourceUtils.getFile("classpath:testdata/invoice.pdf")));
 
-        this.testObj.parse(file);
+        assertThat(this.testObj.parse(file).getBody(), equalTo("Only zip and pdf are accepted"));
 
-        verify(this.fileService, never()).saveAll(anyList());
-    }
-
-    @Test
-    public void testProcessOriginal() throws Exception {
-        MockMultipartFile file =
-                new MockMultipartFile("file", "Archive.zip",
-                        MediaType.MULTIPART_FORM_DATA_VALUE,
-                        new FileInputStream(ResourceUtils.getFile("classpath:testdata/Archive.zip")));
-
-        File subDir = this.testObj.processOriginal(file);
-        assertThat(FileUtils.listFiles(subDir, new String[]{"zip"}, true), hasSize(1));
-    }
-
-    @Test
-    public void testProcessExtractZip() throws Exception {
-        FileUtils.copyFileToDirectory(ResourceUtils.getFile("classpath:testdata/Archive.zip"), new File(tempFolder.getAbsolutePath()));
-        MutableList<File> files = this.testObj.extractFilesFromZip(tempFolder.getAbsolutePath(), "Archive.zip");
-        assertThat(files, hasSize(5));
     }
 
     @Test
@@ -124,7 +97,7 @@ public class FileUploadControllerTest extends BaseTest {
 
         this.mockMvc.perform(multipart("/upload").file(file))
                 .andExpect(status().isOk())
-                .andExpect(content().string("File Upload successful for total of 5 file(s)"));
+                .andExpect(content().string("File Upload successful for total of 1 file(s)"));
     }
 
     @Test
@@ -149,19 +122,5 @@ public class FileUploadControllerTest extends BaseTest {
         this.mockMvc.perform(multipart("/upload").file(file))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("Only zip and pdf are accepted"));
-    }
-
-    @Test
-    public void testMockMvcException() throws Exception {
-        MockMultipartFile file =
-                new MockMultipartFile("file", "invoice.pdf",
-                        MediaType.MULTIPART_FORM_DATA_VALUE,
-                        new FileInputStream(ResourceUtils.getFile("classpath:testdata/invoice.pdf")));
-
-        when(this.fileService.saveAll(anyList())).thenThrow(new RuntimeException());
-
-        this.mockMvc.perform(multipart("/upload").file(file))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string("Unable to parse multipart file invoice.pdf"));
     }
 }
