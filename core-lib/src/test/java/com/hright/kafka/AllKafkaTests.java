@@ -6,7 +6,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         KafkaConsumerConfigTest.class,
-        KafkaProducerConfigTest.class
+        KafkaProducerConfigTest.class,
+        KafkaTopicConfigTest.class
 })
 public class AllKafkaTests {
 }
