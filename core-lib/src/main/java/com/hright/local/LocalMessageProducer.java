@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-@ConditionalOnProperty(name = "spring.kafka.consumer.enabled", havingValue = "false", matchIfMissing = true)
+@ConditionalOnProperty(name = "spring.kafka.consumer.enabled", havingValue = "false")
 public class LocalMessageProducer implements MessageProducer {
     @Override
     public void sendMessage(String topic, String key, String message) {
