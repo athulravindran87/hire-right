@@ -1,6 +1,7 @@
 package com.hright.processor;
 
 import com.hright.processor.disruptor.AllDisruptorTests;
+import com.hright.processor.kafka.AllKafkaTests;
 import com.hright.processor.parser.controller.AllControllerTests;
 import com.hright.processor.parser.service.AllServiceTests;
 import com.hright.processor.parser.tess4j.AllParserTests;
@@ -13,6 +14,7 @@ import org.junit.runners.Suite;
         AllParserTests.class,
         AllServiceTests.class,
         AllDisruptorTests.class,
+        AllKafkaTests.class,
         ApplicationTests.class
 })
 
