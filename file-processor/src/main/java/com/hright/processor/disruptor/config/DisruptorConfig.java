@@ -16,17 +16,17 @@ public class DisruptorConfig {
     @Autowired
     private DisruptorProperties disruptorProperties;
 
-    @Bean("documentPublishHandler")
+    @Bean("documentPublisher")
     public BeanArray<ResumeEvent> publishHandler(ObjectProvider<DocumentPublishHandler> objectProvider) {
         return BeanArray.createBeanArray(objectProvider::getObject, disruptorProperties.getHandler().getDocumentPublishHandlerCount());
     }
 
-    @Bean("pdfParserHandler")
+    @Bean("pdfParser")
     public BeanArray<ResumeEvent> parserHandler(ObjectProvider<PdfParserHandler> objectProvider) {
         return BeanArray.createBeanArray(objectProvider::getObject, disruptorProperties.getHandler().getPdfParserHandlerCount());
     }
 
-    @Bean("sendToDownstreamHandler")
+    @Bean("sendToDownstream")
     public BeanArray<ResumeEvent> sendToDownStreamHandler(ObjectProvider<SendDownStreamHandler> objectProvider) {
         return BeanArray.createBeanArray(objectProvider::getObject, disruptorProperties.getHandler().getSendDownStreamHandlerCount());
     }
