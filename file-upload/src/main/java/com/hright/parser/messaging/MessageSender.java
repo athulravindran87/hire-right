@@ -14,7 +14,7 @@ import java.io.File;
 @Slf4j
 public class MessageSender {
 
-    @Value("{kafka.topic.file-processor}")
+    @Value("${kafka.topic.file-processor}")
     private String topic;
 
     @Autowired
