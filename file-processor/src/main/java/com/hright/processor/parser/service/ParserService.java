@@ -21,7 +21,7 @@ public class ParserService {
     }
 
     public void parse(Resume resume) {
-        String body = this.parser.parse(this.retrieveFile(resume.getResumeUrl()));
+        String body = this.parser.parse(this.retrieveFile(resume.getLocalFileSystemPath()));
         resume.setBody(body);
     }
 

@@ -41,7 +41,7 @@ public class ParserServiceTest extends BaseTest {
 
     @Test
     public void testParse() throws Exception {
-        Resume requestObj = Resume.builder().id("ID").resumeUrl("someurl").build();
+        Resume requestObj = Resume.builder().id("ID").localFileSystemPath("someurl").build();
         this.testObj.parse(requestObj);
         assertThat(requestObj.getBody(), equalTo("somebody"));
     }
