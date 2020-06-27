@@ -1,6 +1,6 @@
 package com.hright.processor.parser.service;
 
-import com.hright.file.FileService;
+import com.hright.FileService;
 import com.hright.model.Resume;
 import com.hright.processor.parser.tess4j.Tess4jParser;
 import org.springframework.beans.factory.annotation.Autowired;

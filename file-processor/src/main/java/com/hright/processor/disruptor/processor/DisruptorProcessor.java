@@ -20,9 +20,9 @@ public class DisruptorProcessor {
     private Disruptor<ResumeEvent> myEventDisruptor;
 
     @Autowired
-    public DisruptorProcessor(@Qualifier("documentPublishHandler") BeanArray<ResumeEvent> publishHandler,
-                              @Qualifier("pdfParserHandler") BeanArray<ResumeEvent> pdfParserHandler,
-                              @Qualifier("sendToDownstreamHandler") BeanArray<ResumeEvent> sendDownStreamHandler,
+    public DisruptorProcessor(@Qualifier("documentPublisher") BeanArray<ResumeEvent> publishHandler,
+                              @Qualifier("pdfParser") BeanArray<ResumeEvent> pdfParserHandler,
+                              @Qualifier("sendToDownstream") BeanArray<ResumeEvent> sendDownStreamHandler,
                               DisruptorProperties properties) {
 
         this.myEventDisruptor = new Disruptor<>(ResumeEvent::new, properties.getBufferSize(), Executors.defaultThreadFactory(), ProducerType.SINGLE, new SleepingWaitStrategy());
