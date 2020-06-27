@@ -6,6 +6,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         LocalFileServiceTest.class,
+        LocalMessageProducerTest.class
 })
-public class AllServiceTests {
+public class AllLocalTests {
 }
