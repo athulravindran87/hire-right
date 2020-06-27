@@ -39,7 +39,7 @@ dm:
 
 file:
   storage:
-    location: /tmp
+    location: /Users/athul/dev/hrtest/test
 
 kafka:
   topic:
