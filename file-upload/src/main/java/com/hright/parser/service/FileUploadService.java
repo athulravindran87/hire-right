@@ -1,9 +1,11 @@
 package com.hright.parser.service;
 
+import com.hright.parser.messaging.MessageSender;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.impl.factory.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -28,6 +30,9 @@ public class FileUploadService {
     @Value("${file.storage.location}")
     private String tempFolder;
 
+    @Autowired
+    private MessageSender messageSender;
+
     public MutableList<File> process(MultipartFile file) throws Exception {
 
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -41,6 +46,8 @@ public class FileUploadService {
         if (org.apache.commons.lang3.StringUtils.endsWith(fileName, ".pdf")) {
             files.add(FileUtils.getFile(subdirectory, file.getOriginalFilename()));
         }
+
+        this.messageSender.sendMessage(files);
         return files;
     }
 

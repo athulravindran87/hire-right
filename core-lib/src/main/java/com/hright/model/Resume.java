@@ -30,7 +30,7 @@ public class Resume implements Serializable {
     {
         return Resume.builder()
                 .id(generateUniqueId())
-                .localFileSystemPath(file.getAbsolutePath() + "/" + file.getName())
+                .localFileSystemPath(file.getAbsolutePath())
                 .build();
     }
 
