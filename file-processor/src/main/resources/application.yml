@@ -45,8 +45,3 @@ tesseract:
 dm:
   aws:
     enabled: false
-
-file:
-  storage:
-    location: /tmp
-
