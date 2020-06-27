@@ -1,6 +1,7 @@
 package com.hright.local;
 
 import com.hright.FileService;
+import com.hright.model.Resume;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.collections.impl.factory.Lists;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@ConditionalOnProperty(name = "dm.aws.enabled", havingValue = "false", matchIfMissing = false)
+@ConditionalOnProperty(name = "dm.aws.enabled", havingValue = "false", matchIfMissing = true)
 public class LocalFileService implements FileService {
 
     @Override
@@ -20,15 +21,14 @@ public class LocalFileService implements FileService {
     }
 
     @Override
-    public String save(File file) {
-        return null;
+    public void save(Resume resume) {
+        resume.setResumeUrl(resume.getLocalFileSystemPath());
     }
 
     @Override
-    public String saveAll(List<File> files) {
+    public void saveAll(List<Resume> files) {
         Lists.adapt(files)
                 .reject(Objects::isNull)
                 .forEach(this::save);
-        return "";
     }
 }

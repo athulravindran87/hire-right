@@ -1,5 +1,6 @@
 package com.hright.local;
 
+import com.hright.model.Resume;
 import com.hright.test.BaseTest;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.collections.impl.factory.Lists;
@@ -15,7 +16,6 @@ import java.io.File;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertNull;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LocalFileServiceTest extends BaseTest {
@@ -41,11 +41,18 @@ public class LocalFileServiceTest extends BaseTest {
 
     @Test
     public void save() {
-        assertNull(this.testObj.save(new File("")));
+        Resume resume = Resume.builder().id("someId").localFileSystemPath("localPath").resumeUrl("").build();
+        this.testObj.save(resume);
+        assertThat(resume.getResumeUrl(), equalTo("localPath"));
     }
 
     @Test
     public void saveAll() {
-        assertThat(this.testObj.saveAll(Lists.mutable.empty()), equalTo(""));
+        Resume resume = Resume.builder().id("someId1").localFileSystemPath("localPath1").resumeUrl("").build();
+        Resume resume1 = Resume.builder().id("someId2").localFileSystemPath("localPath2").resumeUrl("").build();
+
+        this.testObj.saveAll(Lists.mutable.of(resume1, resume));
+        assertThat(resume.getResumeUrl(), equalTo("localPath1"));
+        assertThat(resume1.getResumeUrl(), equalTo("localPath2"));
     }
 }
