@@ -1,4 +1,4 @@
-package com.hright.file;
+package com.hright.local;
 
 import com.hright.test.BaseTest;
 import org.apache.commons.io.FileUtils;

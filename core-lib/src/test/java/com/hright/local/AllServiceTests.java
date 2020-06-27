@@ -1,4 +1,4 @@
-package com.hright.file;
+package com.hright.local;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

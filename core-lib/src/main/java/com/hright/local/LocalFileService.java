@@ -1,5 +1,6 @@
-package com.hright.file;
+package com.hright.local;
 
+import com.hright.FileService;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.collections.impl.factory.Lists;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

@@ -1,7 +1,7 @@
 package com.hright;
 
-import com.hright.file.AllServiceTests;
 import com.hright.kafka.AllKafkaTests;
+import com.hright.local.AllServiceTests;
 import com.hright.model.ResumeTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

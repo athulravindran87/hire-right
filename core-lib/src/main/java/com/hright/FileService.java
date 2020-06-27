@@ -1,4 +1,4 @@
-package com.hright.file;
+package com.hright;
 
 import org.springframework.stereotype.Service;
 

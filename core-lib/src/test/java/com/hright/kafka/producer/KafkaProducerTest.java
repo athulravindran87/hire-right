@@ -1,4 +1,4 @@
-package com.hright.kafka;
+package com.hright.kafka.producer;
 
 import com.hright.test.BaseTest;
 import org.junit.Test;
