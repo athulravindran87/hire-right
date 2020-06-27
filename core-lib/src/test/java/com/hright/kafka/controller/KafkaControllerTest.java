@@ -1,6 +1,6 @@
 package com.hright.kafka.controller;
 
-import com.hright.kafka.KafkaProducer;
+import com.hright.kafka.producer.KafkaProducer;
 import com.hright.test.BaseTest;
 import org.junit.Before;
 import org.junit.Test;

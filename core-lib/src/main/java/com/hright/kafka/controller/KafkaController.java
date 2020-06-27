@@ -1,6 +1,6 @@
 package com.hright.kafka.controller;
 
-import com.hright.kafka.KafkaProducer;
+import com.hright.kafka.producer.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
