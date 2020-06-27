@@ -1,5 +1,6 @@
 package com.hright;
 
+import com.hright.model.Resume;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -10,7 +11,7 @@ public interface FileService {
 
     File retrieveFile(String url);
 
-    String save(File file);
+    void save(Resume resume);
 
-    String saveAll(List<File> files);
+    void saveAll(List<Resume> resumes);
 }
