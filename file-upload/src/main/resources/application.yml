@@ -44,4 +44,4 @@ file:
 kafka:
   topic:
     file-processor: "FILE_PROCESSOR_TOPIC"
-    elastic-search: "ELASTIC_SEARCH_TOPC"
+    elastic-search: "ELASTIC_SEARCH_TOPIC"

@@ -20,7 +20,7 @@ management:
         include: '*'
 
 disruptor:
-  buffer-size: 4096
+  buffer-size: 512
   handler:
     document-publish-handler-count: 10
     pdf-parser-handler-count: 20
@@ -37,7 +37,7 @@ spring:
 kafka:
   topic:
     file-processor: "FILE_PROCESSOR_TOPIC"
-    elastic-search: "ELASTIC_SEARCH_TOPC"
+    elastic-search: "ELASTIC_SEARCH_TOPIC"
 
 tesseract:
   datapath: /Users/athul

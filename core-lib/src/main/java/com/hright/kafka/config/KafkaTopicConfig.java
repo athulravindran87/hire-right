@@ -21,6 +21,9 @@ public class KafkaTopicConfig {
     @Value(value = "${kafka.topic.file-processor}")
     private String fileProcessorTopic;
 
+    @Value(value = "${kafka.topic.elastic-search}")
+    private String elasticSearchTopic;
+
     @Bean
     public KafkaAdmin kafkaAdmin() {
         Map<String, Object> configs = new HashMap<>();
@@ -31,5 +34,10 @@ public class KafkaTopicConfig {
     @Bean
     public NewTopic fileProcessorTopic() {
         return new NewTopic(fileProcessorTopic, 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic elasticSearchTopic() {
+        return new NewTopic(elasticSearchTopic, 1, (short) 1);
     }
 }

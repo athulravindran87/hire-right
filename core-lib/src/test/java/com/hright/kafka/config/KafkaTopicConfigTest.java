@@ -44,4 +44,12 @@ public class KafkaTopicConfigTest extends BaseTest {
         assertThat(newTopic.numPartitions(), equalTo(1));
         assertThat(newTopic.replicationFactor(), equalTo(Short.valueOf("1")));
     }
+
+    @Test
+    public void elasticSearchTopic() {
+        NewTopic newTopic = this.testObj.elasticSearchTopic();
+        assertThat(newTopic.name(), equalTo("ELASTIC_SEARCH_TOPIC"));
+        assertThat(newTopic.numPartitions(), equalTo(1));
+        assertThat(newTopic.replicationFactor(), equalTo(Short.valueOf("1")));
+    }
 }
