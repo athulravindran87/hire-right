@@ -43,7 +43,7 @@ public class FileUploadService {
             files = this.extractFilesFromZip(subdirectory.getAbsolutePath(), file.getOriginalFilename());
         }
 
-        if (org.apache.commons.lang3.StringUtils.endsWith(fileName, ".pdf")) {
+        if (org.apache.commons.lang3.StringUtils.endsWithAny(fileName, ".pdf", ".PDF")) {
             files.add(FileUtils.getFile(subdirectory, file.getOriginalFilename()));
         }
 

@@ -27,6 +27,9 @@ public class KafkaTopicConfigTest extends BaseTest {
 
         ReflectionTestUtils.setField(this.testObj, "fileProcessorTopic",
                 "FILE_PROCESSOR_TOPIC");
+
+        ReflectionTestUtils.setField(this.testObj, "elasticSearchTopic",
+                "ELASTIC_SEARCH_TOPIC");
     }
 
     @Test

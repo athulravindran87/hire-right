@@ -31,6 +31,15 @@ public class Tess4jParserTest extends BaseTest {
     }
 
     @Test
+    public void parseBigFile() {
+
+        File testFile = new File("/Users/athul/Desktop/Resumes/Athul Ravindran_Resume_May 2020.pdf");
+        assertThat(testObj.parse(testFile), containsString("ATHUL RAVINDRAN\n" +
+                "29304 Palm Ct, Lawrenceville, New Jersey 08648 USA @ (201) 423-3536 @ prasanna29387@gmail.com\n" +
+                "Professional Summary"));
+    }
+
+    @Test
     public void parseWithException() {
         File testFile = new File("/Users/athul/SomeFile.pdf");
         assertThat(testObj.parse(testFile), equalTo(""));

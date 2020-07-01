@@ -31,7 +31,7 @@ public class FileUploadController {
         MutableList<File> files = Lists.mutable.empty();
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-        if (!org.apache.commons.lang3.StringUtils.containsAny(fileName, ".zip", ".pdf")) {
+        if (!org.apache.commons.lang3.StringUtils.containsAny(fileName, ".zip", ".pdf", ".PDF")) {
             return new ResponseEntity<>("Only zip and pdf are accepted", HttpStatus.BAD_REQUEST);
         }
 
