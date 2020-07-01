@@ -22,7 +22,7 @@ public class SendDownStreamHandler implements WorkHandler<ResumeEvent> {
     @Override
     public void onEvent(ResumeEvent resumeEvent) throws Exception {
         Resume resume = resumeEvent.getResume();
-        log.info("sending downstream:, {}", resume);
+        log.info("sending message to downstream:, {}", resume.getId());
         this.producer.sendMessage(elasticSearchTopic, resume.getId(), resume.toJson());
     }
 }
