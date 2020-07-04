@@ -20,11 +20,11 @@ management:
         include: '*'
 
 disruptor:
-  buffer-size: 512
+  buffer-size: 64
   handler:
-    document-publish-handler-count: 10
-    pdf-parser-handler-count: 20
-    send-down-stream-handler-count: 10
+    document-publish-handler-count: 2
+    pdf-parser-handler-count: 8
+    send-down-stream-handler-count: 2
 ---
 spring:
   profiles: local
