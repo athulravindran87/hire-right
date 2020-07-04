@@ -1,7 +1,4 @@
 version: '3'
-networks:
-  kafka-net:
-    driver: bridge
 services:
   kafdrop:
     image: obsidiandynamics/kafdrop
@@ -86,7 +83,36 @@ services:
       CONNECT_LOG4J_LOGGERS: org.reflections=ERROR
       CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-5.5.1.jar
 
+  prometheus:
+    image: prom/prometheus:v2.19.2
+    container_name: sandbox-prometheus
+    volumes:
+      - $PWD/prometheus-config/:/etc/prometheus/
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+    ports:
+      - "9090:9090"
+    networks:
+      - net
+  grafana:
+    image: grafana/grafana
+    container_name: sandbox-grafana
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    networks:
+      - net
 volumes:
+  prometheus-config:
+    driver: local
   esdata:
     driver: local
 
+networks:
+  kafka-net:
+    driver: bridge
+  net:
