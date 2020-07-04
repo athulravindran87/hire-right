@@ -35,7 +35,7 @@ public class Resume implements Serializable {
     }
 
     private static String generateUniqueId() {
-        return "R-" + LocalDate.now().toString() + "-" + System.currentTimeMillis();
+        return "R-" + LocalDate.now().toString() + "-" + System.nanoTime();
     }
 
     public String toJson() {
