@@ -1,5 +1,6 @@
 package com.hright.processor;
 
+import com.hright.processor.config.AppConfigTest;
 import com.hright.processor.disruptor.AllDisruptorTests;
 import com.hright.processor.kafka.AllKafkaTests;
 import com.hright.processor.parser.controller.AllControllerTests;
@@ -15,6 +16,7 @@ import org.junit.runners.Suite;
         AllServiceTests.class,
         AllDisruptorTests.class,
         AllKafkaTests.class,
+        AppConfigTest.class,
         ApplicationTests.class
 })
 
