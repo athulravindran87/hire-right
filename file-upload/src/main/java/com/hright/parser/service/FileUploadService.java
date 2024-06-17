@@ -1,8 +1,18 @@
 package com.hright.parser.service;
 
 import com.hright.parser.messaging.MessageSender;
+import com.lowagie.text.Document;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
+import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
+import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.extractor.WordExtractor;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.impl.factory.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +22,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -43,7 +50,11 @@ public class FileUploadService {
             files = this.extractFilesFromZip(subdirectory.getAbsolutePath(), file.getOriginalFilename());
         }
 
-        if (org.apache.commons.lang3.StringUtils.endsWithAny(fileName, ".pdf", ".PDF")) {
+        if (org.apache.commons.lang3.StringUtils.containsIgnoreCase(fileName, ".doc")) {
+            files.add(this.convertDocToPdf(FileUtils.getFile(subdirectory, file.getOriginalFilename())));
+        }
+
+        if (org.apache.commons.lang3.StringUtils.containsIgnoreCase(fileName, ".pdf")) {
             files.add(FileUtils.getFile(subdirectory, file.getOriginalFilename()));
         }
 
@@ -83,10 +94,10 @@ public class FileUploadService {
                 }
                 fos.close();
                 zipEntry = zipInputStream.getNextEntry();
-                files.add(newFile);
+                files.add(this.convertDocToPdf(file));
             }
             zipInputStream.closeEntry();
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error("Exception While Extracting ZipFile: {}", file.getName(), e);
         }
         log.info("Total Files unzipped: {}", files.size());
@@ -117,4 +128,39 @@ public class FileUploadService {
         return destFile;
     }
 
+    private File convertDocToPdf(File file) throws Exception {
+        if (!org.apache.commons.lang3.StringUtils.containsAny(file.getName(), ".doc", ".docx", ".DOC", ".DOCX")) {
+            return file;
+        }
+
+        File pdfOutFile = new File(this.getFileNameWithoutExtension(file.getName()) + ".pdf");
+        OutputStream out = Files.newOutputStream(pdfOutFile.toPath());
+        PdfOptions options = PdfOptions.create();
+
+        InputStream doc = Files.newInputStream(file.toPath());
+        if (org.apache.commons.lang3.StringUtils.equalsIgnoreCase(FilenameUtils.getExtension(file.getName()), "doc")) {
+            POIFSFileSystem fs = new POIFSFileSystem(Files.newInputStream(Paths.get(file.getPath())));
+            HWPFDocument hwpfDocument = new HWPFDocument(fs);
+            WordExtractor we = new WordExtractor(hwpfDocument);
+            String k = we.getText();
+            Document document = new Document();
+            PdfWriter.getInstance(document, out);
+
+            document.open();
+
+            document.add(new Paragraph(k));
+
+            document.close();
+            out.close();
+        } else {
+            XWPFDocument document = new XWPFDocument(doc);
+            PdfConverter.getInstance().convert(document, out, options);
+        }
+        log.info("File with name: {} is now converted to : {}", file.getName(), pdfOutFile.getName());
+        return pdfOutFile;
+    }
+
+    private String getFileNameWithoutExtension(String fileName) {
+        return org.apache.commons.lang3.StringUtils.substringBefore(fileName, ".doc");
+    }
 }
