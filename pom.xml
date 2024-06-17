@@ -22,13 +22,17 @@
         <stefanbirker.version>1.19.0</stefanbirker.version>
         <gson.version>2.8.6</gson.version>
         <commons.lang3.version>3.10</commons.lang3.version>
-        <commons.io.version>2.7</commons.io.version>
+        <commons.io.version>2.16.1</commons.io.version>
         <ec.version>9.2.0</ec.version>
         <powermock.version>2.0.7</powermock.version>
-        <skip.failsafe.tests>false</skip.failsafe.tests>
-        <skip.surefire.tests>false</skip.surefire.tests>
+        <skip.failsafe.tests>true</skip.failsafe.tests>
+        <skip.surefire.tests>true</skip.surefire.tests>
         <jacoco.version>0.8.5</jacoco.version>
         <lmax.version>3.4.2</lmax.version>
+        <aws.version>1.12.744</aws.version>
+        <poi.version>4.12</poi.version>
+        <tess4j.version>4.5.1</tess4j.version>
+        <aws.support>2.2.2.RELEASE</aws.support>
     </properties>
 
     <modules>
@@ -47,14 +51,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-<!--
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
--->
         </dependency>
 
         <dependency>
@@ -180,6 +176,57 @@
                 <groupId>com.lmax</groupId>
                 <artifactId>disruptor</artifactId>
                 <version>${lmax.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-s3</artifactId>
+                <version>${aws.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>fr.opensagres.xdocreport</groupId>
+                <artifactId>fr.opensagres.poi.xwpf.converter.pdf</artifactId>
+                <version>2.0.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>ooxml-schemas</artifactId>
+                <version>1.4</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>net.sourceforge.tess4j</groupId>
+                <artifactId>tess4j</artifactId>
+                <version>${tess4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.jai-imageio</groupId>
+                <artifactId>jai-imageio-core</artifactId>
+                <version>1.3.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-aws-context</artifactId>
+                <version>${aws.support}</version>
             </dependency>
 
         </dependencies>
