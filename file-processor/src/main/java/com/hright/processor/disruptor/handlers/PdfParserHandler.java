@@ -29,7 +29,7 @@ public class PdfParserHandler implements WorkHandler<ResumeEvent> {
             }
             Resume resume = resumeEvent.getResume();
 
-            if (Objects.isNull(resume.getResumeUrl())) {
+            if (Objects.isNull(resume.getLocalFileSystemPath())) {
                 log.error("File System url is empty for Resume id: {}, cannot proceed", resume.getId());
                 return;
             }

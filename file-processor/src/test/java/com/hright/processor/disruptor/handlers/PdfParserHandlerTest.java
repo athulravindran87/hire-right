@@ -12,9 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PdfParserHandlerTest extends BaseTest {
@@ -44,7 +42,7 @@ public class PdfParserHandlerTest extends BaseTest {
     @Test
     public void onEventNoUrl() throws Exception {
         Resume resume = this.createEvent().getResume();
-        resume.setResumeUrl("");
+        resume.setLocalFileSystemPath("");
 
         this.testObj.onEvent(this.createEvent());
         verify(this.parserService, never()).parse(resume);
@@ -64,7 +62,7 @@ public class PdfParserHandlerTest extends BaseTest {
         resumeEvent.setSequenceId(123L);
         resumeEvent.setResume(Resume.builder()
                 .id("RESUM123")
-                .resumeUrl("local")
+                .localFileSystemPath("local")
                 .build());
         return resumeEvent;
     }
