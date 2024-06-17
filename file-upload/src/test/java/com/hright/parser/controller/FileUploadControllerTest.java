@@ -78,13 +78,23 @@ public class FileUploadControllerTest extends BaseTest {
     }
 
     @Test
+    public void testParseDocFile() throws Exception {
+        MockMultipartFile file =
+                new MockMultipartFile("file", "invoice.doc",
+                        MediaType.MULTIPART_FORM_DATA_VALUE,
+                        new FileInputStream(ResourceUtils.getFile("classpath:testdata/invoice.pdf")));
+
+        assertThat(this.testObj.parse(file).getBody(), equalTo("File Upload successful for total of 1 file(s)"));
+    }
+
+    @Test
     public void testParseFileWithIncorrectExtn() throws Exception {
         MockMultipartFile file =
                 new MockMultipartFile("file", "invoice.xxx",
                         MediaType.MULTIPART_FORM_DATA_VALUE,
                         new FileInputStream(ResourceUtils.getFile("classpath:testdata/invoice.pdf")));
 
-        assertThat(this.testObj.parse(file).getBody(), equalTo("Only zip and pdf are accepted"));
+        assertThat(this.testObj.parse(file).getBody(), equalTo("Only zip, pdf and doc format files are accepted"));
 
     }
 
@@ -121,6 +131,6 @@ public class FileUploadControllerTest extends BaseTest {
 
         this.mockMvc.perform(multipart("/upload").file(file))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string("Only zip and pdf are accepted"));
+                .andExpect(content().string("Only zip, pdf and doc format files are accepted"));
     }
 }
