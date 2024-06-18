@@ -29,9 +29,9 @@ spring:
   profiles: local
   kafka:
     consumer:
-      bootstrap-servers: http://localhost:9092
+      bootstrap-servers: http://localhost:29092
     producer:
-      bootstrap-servers: http://localhost:9092
+      bootstrap-servers: http://localhost:29092
 
 dm:
   aws:
@@ -39,9 +39,9 @@ dm:
 
 file:
   storage:
-    location: /Users/athul/dev/hrtest/test
+    location: /Users/athulravindran/athul/dev/hrtest/test
 
 kafka:
   topic:
     file-processor: "FILE_PROCESSOR_TOPIC"
-    elastic-search: "ELASTIC_SEARCH_TOPIC"
+    elastic-search: "elastic_search_topic"

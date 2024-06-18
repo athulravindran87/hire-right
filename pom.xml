@@ -25,8 +25,8 @@
         <commons.io.version>2.7</commons.io.version>
         <ec.version>9.2.0</ec.version>
         <powermock.version>2.0.7</powermock.version>
-        <skip.failsafe.tests>true</skip.failsafe.tests>
-        <skip.surefire.tests>true</skip.surefire.tests>
+        <skip.failsafe.tests>false</skip.failsafe.tests>
+        <skip.surefire.tests>false</skip.surefire.tests>
         <jacoco.version>0.8.5</jacoco.version>
         <lmax.version>3.4.2</lmax.version>
         <aws.version>1.12.744</aws.version>
@@ -60,6 +60,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
         </dependency>
 
         <dependency>
@@ -112,6 +117,30 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-messaging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

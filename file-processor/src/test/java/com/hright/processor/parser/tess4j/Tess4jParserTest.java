@@ -2,6 +2,7 @@ package com.hright.processor.parser.tess4j;
 
 import com.hright.test.BaseTest;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -22,8 +23,8 @@ public class Tess4jParserTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void parse() {
-
         File testFile = new File("/Users/athul/Athul Ravindran Resume.pdf");
         assertThat(testObj.parse(testFile), containsString("ATHUL RAVINDRAN\n" +
                 "29304 Palm Ct, Lawrenceville, New Jersey 08648 USA @ (201) 423-3536 @ prasanna29387@gmail.com\n" +
@@ -31,6 +32,7 @@ public class Tess4jParserTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void parseBigFile() {
 
         File testFile = new File("/Users/athul/Desktop/Resumes/Athul Ravindran_Resume_May 2020.pdf");

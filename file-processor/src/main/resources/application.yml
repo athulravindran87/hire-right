@@ -30,18 +30,24 @@ spring:
   profiles: local
   kafka:
     consumer:
-      bootstrap-servers: http://localhost:9092
+      bootstrap-servers: http://localhost:29092
     producer:
-      bootstrap-servers: http://localhost:9092
+      bootstrap-servers: http://localhost:29092
 
 kafka:
   topic:
     file-processor: "FILE_PROCESSOR_TOPIC"
-    elastic-search: "ELASTIC_SEARCH_TOPIC"
+    elastic-search: "elastic_search_topic"
 
 tesseract:
-  datapath: /Users/athul
+  datapath: /usr/local/Cellar/tesseract/5.4.1/share/tessdata/
 
 dm:
   aws:
     enabled: false
+
+aws:
+  s3:
+    resume-bucket:
+      bucket-name: "resume-data-bank"
+      region: "ap-southeast-2"
