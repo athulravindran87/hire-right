@@ -26,7 +26,9 @@ management:
         include: '*'
 ---
 spring:
-  profiles: local
+  config:
+    activate:
+      on-profile: local
   kafka:
     consumer:
       bootstrap-servers: http://localhost:29092

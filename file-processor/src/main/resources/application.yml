@@ -27,7 +27,9 @@ disruptor:
     send-down-stream-handler-count: 2
 ---
 spring:
-  profiles: local
+  config:
+    activate:
+      on-profile: local
   kafka:
     consumer:
       bootstrap-servers: http://localhost:29092
