@@ -20,7 +20,7 @@
         <lombok.version>1.18.32</lombok.version>
         <openpojo.version>0.8.13</openpojo.version>
         <stefanbirker.version>1.19.0</stefanbirker.version>
-        <gson.version>2.8.6</gson.version>
+        <gson.version>2.8.9</gson.version>
         <commons.lang3.version>3.10</commons.lang3.version>
         <commons.io.version>2.7</commons.io.version>
         <ec.version>9.2.0</ec.version>
