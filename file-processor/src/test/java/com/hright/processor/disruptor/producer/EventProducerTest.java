@@ -9,11 +9,8 @@ import com.lmax.disruptor.dsl.Disruptor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Answers;
 import org.mockito.Mock;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -21,11 +18,10 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({RingBuffer.class})
+@RunWith(MockitoJUnitRunner.class)
 public class EventProducerTest extends BaseTest {
 
-    @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+    @Mock
     private DisruptorProcessor disruptorProcessor;
 
     @Mock
@@ -43,7 +39,7 @@ public class EventProducerTest extends BaseTest {
 
         when(this.disruptorProcessor.getMyEventDisruptor()).thenReturn(this.disruptor);
         when(this.disruptor.start()).thenReturn(this.ringBuffer);
-        PowerMockito.mockStatic(RingBuffer.class);
+        //PowerMockito.mockStatic(RingBuffer.class);
 
         this.resume = Resume.builder()
                 .id("testId")
@@ -57,7 +53,7 @@ public class EventProducerTest extends BaseTest {
     public void publishEvent() {
 
         this.testObj.publishEvent(this.resume);
-        verify(this.ringBuffer).publishEvent(eq(this.testObj.TRANSLATOR_ONE_ARG), eq(this.resume));
+        verify(this.ringBuffer).publishEvent(eq(EventProducer.TRANSLATOR_ONE_ARG), eq(this.resume));
     }
 
     @Test

@@ -9,7 +9,6 @@ import com.hright.test.BaseTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Answers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -23,31 +22,35 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class DisruptorConfigTest extends BaseTest {
 
-    @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+    @Mock
     private DisruptorProperties disruptorProperties;
+
+    @Mock
+    private DisruptorProperties.Handler handler;
 
     @InjectMocks
     private DisruptorConfig testObj;
 
     @Before
     public void setUp() throws Exception {
-        when(this.disruptorProperties.getHandler().getDocumentPublishHandlerCount()).thenReturn(1);
-        when(this.disruptorProperties.getHandler().getPdfParserHandlerCount()).thenReturn(2);
-        when(this.disruptorProperties.getHandler().getSendDownStreamHandlerCount()).thenReturn(3);
+        when(this.disruptorProperties.getHandler()).thenReturn(this.handler);
+        when(this.handler.getDocumentPublishHandlerCount()).thenReturn(1);
+        when(this.handler.getPdfParserHandlerCount()).thenReturn(2);
+        when(this.handler.getSendDownStreamHandlerCount()).thenReturn(3);
     }
 
     @Test
-    public void publishHandler() throws Exception {
+    public void publishHandler() {
         ObjectProvider<DocumentPublishHandler> objectProvider = Mockito.mock(ObjectProvider.class);
         when(objectProvider.getObject()).thenReturn(new DocumentPublishHandler());
-        BeanArray<ResumeEvent> beanArray = this.testObj.publishHandler(objectProvider);
+        BeanArray beanArray = this.testObj.publishHandler(objectProvider);
 
         assertThat(beanArray.getHandler().length, equalTo(1));
     }
 
     @Test
     public void parserHandler() {
-        ObjectProvider<PdfParserHandler> objectProvider = Mockito.mock(ObjectProvider.class);
+        ObjectProvider objectProvider = Mockito.mock(ObjectProvider.class);
         when(objectProvider.getObject()).thenReturn(new PdfParserHandler());
         BeanArray<ResumeEvent> beanArray = this.testObj.parserHandler(objectProvider);
 

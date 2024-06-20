@@ -9,35 +9,33 @@ import com.lmax.disruptor.dsl.Disruptor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Answers;
 import org.mockito.Mock;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({WorkHandler.class})
+@RunWith(MockitoJUnitRunner.class)
 public class DisruptorProcessorTest extends BaseTest {
 
-    @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+    @Mock
     private BeanArray<ResumeEvent> resumeEventBeanArray;
 
     @Mock
     private DisruptorProperties properties;
 
-    private WorkHandler mockHandler;
+    @Mock
+    private WorkHandler<ResumeEvent> mockHandler;
 
     private DisruptorProcessor testObj;
 
     @Before
     public void setUp() throws Exception {
-        PowerMockito.mockStatic(WorkHandler.class);
+        Mockito.mockStatic(WorkHandler.class);
         when(this.properties.getBufferSize()).thenReturn(1024);
-        when(this.resumeEventBeanArray.getHandler()).thenReturn(new WorkHandler[]{mockHandler, mockHandler});
+        when(this.resumeEventBeanArray.getHandler()).thenReturn(new WorkHandler[]{this.mockHandler, this.mockHandler});
         this.testObj = new DisruptorProcessor(resumeEventBeanArray, resumeEventBeanArray, resumeEventBeanArray, properties);
     }
 

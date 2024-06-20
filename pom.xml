@@ -18,21 +18,21 @@
     <properties>
         <java.version>17</java.version>
         <lombok.version>1.18.32</lombok.version>
-        <openpojo.version>0.8.13</openpojo.version>
+        <openpojo.version>0.9.1</openpojo.version>
         <stefanbirker.version>1.19.0</stefanbirker.version>
-        <gson.version>2.8.6</gson.version>
-        <commons.lang3.version>3.10</commons.lang3.version>
+        <gson.version>2.11.0</gson.version>
+        <commons.lang3.version>3.14.0</commons.lang3.version>
         <commons.io.version>2.7</commons.io.version>
-        <ec.version>9.2.0</ec.version>
-        <powermock.version>2.0.7</powermock.version>
+        <ec.version>11.1.0</ec.version>
         <skip.failsafe.tests>false</skip.failsafe.tests>
         <skip.surefire.tests>false</skip.surefire.tests>
-        <jacoco.version>0.8.5</jacoco.version>
+        <jacoco.version>0.8.12</jacoco.version>
         <lmax.version>3.4.2</lmax.version>
         <aws.version>1.12.744</aws.version>
         <poi.version>4.1.2</poi.version>
         <tess4j.version>4.5.1</tess4j.version>
         <aws.support>2.2.2.RELEASE</aws.support>
+        <maven-surefire-plugin.version>3.3.0</maven-surefire-plugin.version>
     </properties>
 
     <modules>
@@ -113,16 +113,6 @@
             <artifactId>eclipse-collections</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito2</artifactId>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -152,6 +142,17 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -202,20 +203,6 @@
                 <groupId>org.eclipse.collections</groupId>
                 <artifactId>eclipse-collections</artifactId>
                 <version>${ec.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-module-junit4</artifactId>
-                <version>${powermock.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-api-mockito2</artifactId>
-                <version>${powermock.version}</version>
-                <scope>test</scope>
             </dependency>
 
             <dependency>
@@ -350,9 +337,9 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
-                        <!--                        <includes>-->
-                        <!--                            <include>**/AllTests.java</include>-->
-                        <!--                        </includes>-->
+                        <includes>
+                            <include>**/*Test.java</include>
+                        </includes>
                         <skipTests>${skip.surefire.tests}</skipTests>
                     </configuration>
                 </plugin>

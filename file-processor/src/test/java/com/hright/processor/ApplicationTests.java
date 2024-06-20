@@ -5,44 +5,40 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.SpringApplication;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.eq;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(SpringApplication.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ApplicationTests {
 
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+
+    @Mock
+    private MockedStatic<SpringApplication> springApplication;
 
     private Application testObj;
 
     @Before
     public void setUp() {
         this.testObj = new Application();
-        PowerMockito.mockStatic(SpringApplication.class);
     }
 
     @Test
-    public void contextLoads() throws Exception {
+    public void contextLoads() {
         assertNotNull(this.testObj);
     }
 
     @Test
-    public void testApplicationRuns() throws Exception {
+    public void testApplicationRuns() {
         String[] args = {"Some arg", "Some arg"};
 
-        assertNotNull(testObj);
-
         Application.main(args);
-
-        PowerMockito.verifyStatic(SpringApplication.class);
-
-        SpringApplication.run(eq(Application.class), eq("Some arg"), eq("Some arg"));
+        this.springApplication.verify(() -> SpringApplication.run(eq(Application.class), eq(args)));
     }
 }
